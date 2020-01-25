@@ -2,20 +2,33 @@ import java.util.Scanner;
 
 public class Application {
 	public static void main(String[] args) {
-
-		Scanner input = new Scanner(System.in);
-
-		System.out.println("Please enter a command: ");
-		String text = input.nextLine();
-
-		switch (text) {
-		case "start":
-			System.out.println("Machine started!");
-			break;
-		case "stop":
-			System.out.println("Machine stopped!");
-		default:
-			System.out.println("Command not recognized");
+		
+		int value = 7;
+		
+		// массив
+		int[] values;
+		// резервируем памят для 3ех int
+		values = new int[3];
+		
+		System.out.println(values[0]);
+		
+		values[0] = 10;
+		values[1] = 20;
+		values[2] = 30;
+		
+		// System.out.println(values[0]);
+		// System.out.println(values[1]);
+		// System.out.println(values[2]);
+		
+		for(int i=0; i<values.length; i++) {
+			System.out.println(values[i]);
+		}
+		
+		// способ присваивания без резерв. памяти
+		int[] numbers = {5,6,7};
+		
+		for(int i=0; i<numbers.length; i++) {
+			System.out.println(numbers[i]);
 		}
 		
 	}
