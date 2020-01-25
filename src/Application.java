@@ -1,30 +1,46 @@
-class Robot {
-	public void speak(String text) {
-		System.out.println(text);
+class Frog {
+	
+	// приватные свой-ва
+	private String name;
+	private int age;
+	
+	// this используются обычно когда 2 переменных имеют одно и то же имя
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public void jump(int height) {
-		System.out.println("Jumping: " + height);
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
-	public void move(String direction, double distance) {
-		System.out.println("Moving " + distance + " meters in direction " + direction);
+	public String getName() {
+		return name;
 	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setInfo(String name, int age) {
+		setName(name);
+		setAge(age);
+	}
+	
 }
 
 public class Application {
 	public static void main(String[] args) {
-		Robot sam = new Robot();
 		
-		// паредача параметра
-		sam.speak("Hi I'm Sam");
-		sam.jump(7);
+		Frog frog1 = new Frog();
 		
-		sam.move("West", 12.2);
+		// frog1.name = "Bertie";
+		// frog1.age = 1;
 		
-		String greeting = "Hello there.";
+		frog1.setName("Bertie");
+		frog1.setAge(1);
 		
-		sam.speak(greeting);
+		System.out.println(frog1.getName());
+		System.out.println(frog1.getAge());
 		
 	}
 }
