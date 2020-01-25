@@ -1,45 +1,30 @@
-class Person {
-	String name;
-	int age;
-	
-	void speak() {
-		System.out.println("My name is: " + name);
+class Robot {
+	public void speak(String text) {
+		System.out.println(text);
 	}
 	
-	// данный метод возращает значение типа int;
-	int calculateYearsToRetirement() {
-		int yearsLeft = 65 - age;		
-		return yearsLeft;
+	public void jump(int height) {
+		System.out.println("Jumping: " + height);
 	}
 	
-	// Getters
-	int getAge() {
-		return age;
+	public void move(String direction, double distance) {
+		System.out.println("Moving " + distance + " meters in direction " + direction);
 	}
-	
-	String getName() {
-		return name;
-	}
-	
 }
 
 public class Application {
 	public static void main(String[] args) {
+		Robot sam = new Robot();
 		
-		Person person1 = new Person();
-		person1.name = "Joe";
-		person1.age = 25;
+		// паредача параметра
+		sam.speak("Hi I'm Sam");
+		sam.jump(7);
 		
-		person1.speak();
+		sam.move("West", 12.2);
 		
-		int years = person1.calculateYearsToRetirement();
-		System.out.println("Years untill retirment " + years);
+		String greeting = "Hello there.";
 		
-		int age = person1.getAge();
-		String name = person1.getName();
+		sam.speak(greeting);
 		
-		System.out.println("Name is: " + name);
-		System.out.println("Age is: " + age);
-		
-	};
+	}
 }
