@@ -1,46 +1,42 @@
-class Frog {
-	
-	// приватные свой-ва
+class Machine {
+
 	private String name;
-	private int age;
-	
-	// this используютс€ обычно когда 2 переменных имеют одно и то же им€
-	public void setName(String name) {
+	private int code;
+
+	// конструктор 1
+	public Machine() {
+		// вызов третьего конструтора
+		// всегда должно быть на первой строке
+		this("Arnie", 0);
+
+		System.out.println("Contructor running!");
+		// name = "Arnie";
+	}
+
+	// конструктор 2
+	public Machine(String name) {
+		// вызов третьего конструтора
+		this(name, 0);
+		System.out.println("Second Contructor running!");
 		this.name = name;
 	}
-	
-	public void setAge(int age) {
-		this.age = age;
+
+	public Machine(String name, int code) {
+
+		System.out.println("Third constructor running!");
+		this.name = name;
+		this.code = code;
 	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public int getAge() {
-		return age;
-	}
-	
-	public void setInfo(String name, int age) {
-		setName(name);
-		setAge(age);
-	}
-	
+
 }
 
 public class Application {
 	public static void main(String[] args) {
-		
-		Frog frog1 = new Frog();
-		
-		// frog1.name = "Bertie";
-		// frog1.age = 1;
-		
-		frog1.setName("Bertie");
-		frog1.setAge(1);
-		
-		System.out.println(frog1.getName());
-		System.out.println(frog1.getAge());
-		
+		// вызов первого конструтора
+		Machine machine1 = new Machine();
+		// вызов второго конструтора. Ќаходит конструтор с передаваемым аргументом и вызвает его
+		// Machine machine2 = new Machine("Bertie");
+		// вызов третьего конструтора
+		// Machine machine3 = new Machine("Chalky", 7);
 	}
 }
