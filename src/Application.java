@@ -1,21 +1,15 @@
 
 public class Application {
 	public static void main(String[] args) {
+		// int value = 10;
+		// boolean loop = value < 20;
+		// System.out.println(loop);
 		
-		// класс string (не примитивный тип данных)
-		String text = "Hello";
-		String blank = " ";
-		String name = "Bob";
-		String greeting = text + blank + name;
+		int value = 0;
+		while(value < 5) {
+			System.out.println("Hello " + value);
+			value = value + 1;
+		}
 		
-		System.out.println(greeting);
-		System.out.println("Hello" + " " + "Jane");
-		
-		int myInt = 7;
-		System.out.println("My integer is: " + myInt);
-		
-		double myDouble = 7.8;
-	    System.out.println("My double is: " + myDouble + ".");
-	
 	}
 }
