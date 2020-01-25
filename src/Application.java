@@ -3,22 +3,20 @@ import java.util.Scanner;
 public class Application {
 	public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in);
+		Scanner input = new Scanner(System.in);
 
-		/*
-		 * System.out.println("Enter a number: "); int value = scanner.nextInt();
-		 * 
-		 * while(value != 5) { System.out.println("Enter a number: "); value =
-		 * scanner.nextInt(); }
-		 */
+		System.out.println("Please enter a command: ");
+		String text = input.nextLine();
 
-		// do/while позволило в данном случае не дублировать код sysout
-		int value = 0;
-		do {
-			System.out.println("Enter a number: ");
-			value = scanner.nextInt();
-		} while (value != 5);
-
-		System.out.println("Got 5!");
+		switch (text) {
+		case "start":
+			System.out.println("Machine started!");
+			break;
+		case "stop":
+			System.out.println("Machine stopped!");
+		default:
+			System.out.println("Command not recognized");
+		}
+		
 	}
 }
