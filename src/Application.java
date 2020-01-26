@@ -1,34 +1,31 @@
+import world.Plant;
+
 /*
- * Как я понял, интерфейс -  это некая копирка, 
- * позволяющая вызывать и манипулировать только теми методами в классе 
- * которые определены в нем
+ * public - доступ абсолютно везде
+ * private - доступ только в текущем классе
+ * protected - доступ в текущем классе, в дочерниx и текущем пакете
+ * без модификатора -- только в текущем пакете
  */
+
 public class Application {
 	public static void main(String[] args) {
+		Plant plant = new Plant();
 		
-		Machine mach1 = new Machine();
-		mach1.start();
+		System.out.println(plant.name);
 		
-		Person person1 = new Person("Bob");
-		person1.greet();
+		System.out.println(plant.ID);
 		
-		// интерфейсы
-		Info info1 = new Machine();
-		info1.showInfo();
+		// Won't work -- type is private
+		// System.out.println(plant.type);
 		
-		Info info2 = person1;
-		info2.showInfo();
+		// size is protected; App is not in the same package as Plant
+		// Won't work
+		// System.out.println(plant.size);
 		
-		System.out.println();
-		
-		outputInfo(mach1);
-		outputInfo(person1);
-		
-	}
-	
-	private static void outputInfo(Info info) {
-		// вызывается метод класса, определенный в интефейсе
-		info.showInfo();
+		// Won't work; App and Plant in different packages, 
+		// height has package level visibility
+		// System.out.println(plant.height);
 	}
 	
 }
+ 
