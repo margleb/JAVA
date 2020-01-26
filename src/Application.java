@@ -1,48 +1,31 @@
+class Frog {
+	
+	private int id;
+	private String name;
+	
+	public Frog(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	// метод toString() предоставл€ет строковое представление обьекта
+    // позвол€ющее индентифицировать обьект
+	public String toString() {
+		/*
+		StringBuilder sb = new StringBuilder();
+		sb.append(id).append(": ").append(name);
+		// return id + ": " + name;
+		return sb.toString();
+		*/
+		return String.format("%-4d: %s", id, name);
+	}
+}
+
 public class Application {
 	public static void main(String[] args) {
-		
-		// Inefficient
-		String info = "";		
-		info += "My name is bob";
-		info += " ";
-		info += "I am a buidler";
-		
-		System.out.println(info);
-		
-		// More efficent
-		StringBuilder sb = new StringBuilder("");
-		sb.append("My name is Sue.");
-		sb.append(" ");
-		sb.append("I am a lion tamer");
-		System.out.println(sb.toString());
-		
-		StringBuilder s = new StringBuilder();
-		s.append("My name is Roger.")
-		.append(" ")
-		.append("I am a skydiver");
-		System.out.println(s.toString());
-		
-		/// Formatting /////
-		System.out.print("Here is some text.\tThat was a tab.\nThat was a newline.");
-		System.out.println("More text.");
-		
-		// Formatting integer
-		System.out.printf("Total const %-10d; quantity is %d\n", 5, 120);
-		
-		for(int i=0; i<20; i++) {
-			// 2 в данном случае позвол€ет добавить пробелы
-			// - (минус) позвол€ет выровнить по числа по левому краю
-			System.out.printf("%-2d: %s\n", i, "Here is some text");
-		}
-		
-		// Formatting floating point values
-		// .2 указывает кол-во цифр после зап€той
-		// -6.1 (6 - количество символов + пробел); 
-		// (1 - кол-во символов после зап€той); 
-		// (минус - выравнивание по левому краю)
-		System.out.printf("Total value: %.2f\n", 5.6783);
-		System.out.printf("Total value: %-6.1f\n", 321.6783);
-		
-		 
+		 Frog frog1 = new Frog(7, "Freddy");
+		 Frog frog2 = new Frog(5, "Roger");
+		 System.out.println(frog1);
+		 System.out.println(frog2);
 	}
 }
