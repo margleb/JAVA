@@ -1,30 +1,24 @@
-import world.Plant;
-
-/*
- * public - доступ абсолютно везде
- * private - доступ только в текущем классе
- * protected - доступ в текущем классе, в дочерниx и текущем пакете
- * без модификатора -- только в текущем пакете
- */
-
 public class Application {
+	
 	public static void main(String[] args) {
-		Plant plant = new Plant();
+		Plant plant1 = new Plant();
+		Tree tree = new Tree();
 		
-		System.out.println(plant.name);
+		Plant plant2 = tree;
+		// вызвается переписываемый метод из tree
+		plant2.grow();
 		
-		System.out.println(plant.ID);
+		tree.shedLeaves();
 		
-		// Won't work -- type is private
-		// System.out.println(plant.type);
+		// ошибка, та как у класса Plant нет shedLeaves() метода
+		// plant2.shedLeaves();
 		
-		// size is protected; App is not in the same package as Plant
-		// Won't work
-		// System.out.println(plant.size);
-		
-		// Won't work; App and Plant in different packages, 
-		// height has package level visibility
-		// System.out.println(plant.height);
+		doGrow(tree);
+	}
+	
+	// полиморфизм гарантирует  что везде, где родительский класс ожидается, я могу использовать дочерний класс этого родителя.
+	public static void doGrow(Plant plant) {
+		plant.grow();
 	}
 	
 }
