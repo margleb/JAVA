@@ -1,25 +1,36 @@
+/*
+ * Суть инкапсуляции - объединение данных и методов работы с этими данными в одной упаковке (классе)
+ * Сокрытие - скрытие всех данных в классе (private) и предоставление данных (методов) для управления этими данными 
+ */
+class Plant {
+	
+	public static final int ID = 7;
+	private String name;
+
+	private int calculateGrowthForecast() {
+		return 9;
+	}	
+	
+	// классы для управления данными, остальная инфа скрыта
+	public String getData() {
+		String data = "some stuff" + calculateGrowthForecast();
+		return data;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	} 
+	
+}
+
 public class Application {
 	
 	public static void main(String[] args) {
-		Plant plant1 = new Plant();
-		Tree tree = new Tree();
-		
-		Plant plant2 = tree;
-		// вызвается переписываемый метод из tree
-		plant2.grow();
-		
-		tree.shedLeaves();
-		
-		// ошибка, та как у класса Plant нет shedLeaves() метода
-		// plant2.shedLeaves();
-		
-		doGrow(tree);
-	}
-	
-	// полиморфизм гарантирует  что везде, где родительский класс ожидается, я могу использовать дочерний класс этого родителя.
-	public static void doGrow(Plant plant) {
-		plant.grow();
+
 	}
 	
 }
- 
