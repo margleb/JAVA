@@ -1,36 +1,37 @@
-/*
- * —уть инкапсул€ции - объединение данных и методов работы с этими данными в одной упаковке (классе)
- * —окрытие - скрытие всех данных в классе (private) и предоставление данных (методов) дл€ управлени€ этими данными 
- */
-class Plant {
-	
-	public static final int ID = 7;
-	private String name;
-
-	private int calculateGrowthForecast() {
-		return 9;
-	}	
-	
-	// классы дл€ управлени€ данными, остальна€ инфа скрыта
-	public String getData() {
-		String data = "some stuff" + calculateGrowthForecast();
-		return data;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	} 
-	
-}
-
 public class Application {
 	
 	public static void main(String[] args) {
-
+		byte byteValue = 20;
+		short shortValue = 55;
+		int intValue = 888;
+		long longValue = 23355;
+		
+		float floatValue = 8834.8f;
+		// преобразование double во float
+		float floatValue2 = (float) 99.3;
+		double doubleValue = 32.4;
+		
+		// System.out.println(Byte.MAX_VALUE);
+		// System.out.println(Integer.MAX_VALUE);
+		
+		// »спользуем кастинг дл€ конвертации одного числа в другое
+		intValue = (int) longValue;
+		System.out.println(intValue);
+		
+		// Ќет необходимости указывать, так как значение не урезаетс€
+		// а лишь преобразуетс€ в число с плавающей точкой
+		doubleValue = intValue;
+		System.out.println(doubleValue);
+		
+		// “ребуетс€ указание кастинга так как урезаютс€ значени€ 
+		// после зап€той
+		intValue = (int) floatValue;
+		System.out.println(intValue);
+		
+		// преобразует в -128, так как макс. число 127
+		byteValue = (byte)128;
+		System.out.println(byteValue);
+		
 	}
 	
 }
