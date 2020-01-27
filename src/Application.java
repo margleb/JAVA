@@ -1,55 +1,46 @@
-class Machine {
-	public void start() {
-		System.out.println("Machine started");
-	}
-}
+import java.util.ArrayList;
 
-class Camera extends Machine {
-	public void start() {
-		System.out.println("Camera started");
-	}
+
+class Animal {
 	
-	public void snap() {
-		System.out.println("Photo taken");
-	}
 }
 
 public class Application {
 	
 	public static void main(String[] args) {
 		
-		Machine machine1 = new Machine();
-		Camera camera1 = new Camera();
+		///////////////// Before Java 5 ///////////////
+		ArrayList list = new ArrayList();
 		
-		// machine1.start();
-		// camera1.start();
-		// camera1.snap();
+		list.add("apple");
+		list.add("banana");
+		list.add("orange");
 		
-		/*
-		 *  Тип переменной определяет какой метод я могу вызвать, 
-		 *  а переменная содержащая в себе другой тип обьекта,
-		 *  определяет какие фактически методы будут вызываться 
-		 *  при вызове конкретного метода
-		 */
+		// get возращает обьект, поэтому его необходимо downcasting в cтроку
+		String fruit = (String) list.get(1);
 		
-		// Upcasting
-		Machine machine2 = camera1;
-		// вызывается метод из класса camera
-		machine2.start();
-		// error: machine2.snap();
+		System.out.println(fruit);
 		
-		// Downcasting
-		Machine machine3 = new Camera();
-		Camera camera2 = (Camera) machine3;
-		camera2.start();
-		// теперь метод snap() доступен
-		camera2.snap();
+		///////////// Modern style //////////////////
 		
-		// Doesn't work -- runtime error
-		Machine machine4 = new Machine();
-		// Camera camera3 = (Camera)machine4;
-		// camera3.start();
-		// camera3.snap();
+		// Указываем в квадратных скобках тип который сразу же хотим
+		ArrayList<String> strings = new ArrayList<String>();
+		
+		strings.add("сat");
+		strings.add("dog");
+		strings.add("alligator");
+		
+		String animal = strings.get(1);
+		System.out.println(animal);
+		
+		//////////// There can be more than one type argument //////////////
+		// HashMap<Integer, String> map = new HashMap<Integer,String>();
+		
+	
+		////////// Java 7 style //////////////////////
+		
+		ArrayList<Animal> someList = new ArrayList<>();
+	
 	}
 	
 }
