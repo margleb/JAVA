@@ -1,31 +1,41 @@
-class Machine {
-	public void start() {
-		System.out.println("Starting machine...");
-	}
-}
-
-interface Plant {
-	public void grow();
-}
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Application {
-
-	public static void main(String[] args) {
-		// переписанный класс является потом родительского
-		Machine machine1 = new Machine() {
-			@Override public void start() {
-				System.out.println("Camera snapping...");
-			}
-		};
-		machine1.start();
+	// FileNotFoundException кидает ошибку (работает как try/catch)
+	public static void main(String[] args) throws FileNotFoundException {
+		// путь к файлу
+		// String filename = "C:/Users/margleb/Desktop/example.txt";
+		String filename = "example.txt";
+		// класс file
+		File textFile = new File(filename);
 		
-		// внедрение метода через интерфейс
-		Plant plant1 = new Plant() {
-			public void grow() {
-				System.out.println("Plant growing");	
-			}
-		};
+		// сканируем файл
+		Scanner in = new Scanner(textFile);
 		
-		plant1.grow();
+		// прочитать integer значение
+		int value = in.nextInt();
+		System.out.println("Read value: " + value);
+		/*
+		 * В отличии от nextInt() метода, 
+		 * nextLine() прочитывает невидимый символ (новая строка), 
+		 * исправляя появление пустой строки под номером 2
+		 */
+		in.nextLine();
+		
+		int count = 2;
+		// пока есть следующая строка
+		while(in.hasNextLine()) {
+			// берем строку
+			String line = in.nextLine();
+			// выводим строку
+			System.out.println(count + ": " + line);
+			count++;
+		}
+		
+		// закрытие
+		in.close();
 	}
+	
 }
