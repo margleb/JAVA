@@ -1,27 +1,15 @@
-/*
- * RuntimeException - это такие исключения которые являются базовыми 
- * как в этом примере делить на ноль незлья и не могут быть
- * записаны. Поэтому их не нужно обьявлет в конструкторе try/catch или trow.
- */
 public class Application {
+	
 	public static void main(String[] args) {
+		Camera cam1 = new Camera();
+		cam1.setId(5);
 		
-		/* вариант 1 */
-		// int value = 7;
-		// value = value/0;
+		Car car1 = new Car();
+		car1.setId(4);
 		
-		/* вариант 2 */
-		// String text = null;
-		// System.out.println(text.length());
-		
-		/* вариант 3 */
-		String[] texts = {"one", "two", "three"};
-		
-		try {
-			System.out.println(texts[3]);	
-		} catch (RuntimeException e) {
-			System.out.println(e.toString());
-		}
-		
+		сar1.run();
+		// Невозможно инициализировать, так как Machine это абстрактный класс
+		// Machine machine1 = new Machine();
 	}
+	
 }
