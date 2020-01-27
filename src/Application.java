@@ -1,46 +1,26 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
-
+/*
+ * RuntimeException - это такие исключения которые являются базовыми 
+ * как в этом примере делить на ноль незлья и не могут быть
+ * записаны. Поэтому их не нужно обьявлет в конструкторе try/catch или trow.
+ */
 public class Application {
 	public static void main(String[] args) {
-		Test test = new Test();
-		/*
-		try {
-			test.run();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			System.out.println("Couldn't parse command file.");
-		}
-		*/
-		/*
-		try {
-			test.run();
-		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+		
+		/* вариант 1 */
+		// int value = 7;
+		// value = value/0;
+		
+		/* вариант 2 */
+		// String text = null;
+		// System.out.println(text.length());
+		
+		/* вариант 3 */
+		String[] texts = {"one", "two", "three"};
 		
 		try {
-			test.run();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			test.input();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(texts[3]);	
+		} catch (RuntimeException e) {
+			System.out.println(e.toString());
 		}
 		
 	}
