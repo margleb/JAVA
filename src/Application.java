@@ -1,37 +1,55 @@
+class Machine {
+	public void start() {
+		System.out.println("Machine started");
+	}
+}
+
+class Camera extends Machine {
+	public void start() {
+		System.out.println("Camera started");
+	}
+	
+	public void snap() {
+		System.out.println("Photo taken");
+	}
+}
+
 public class Application {
 	
 	public static void main(String[] args) {
-		byte byteValue = 20;
-		short shortValue = 55;
-		int intValue = 888;
-		long longValue = 23355;
 		
-		float floatValue = 8834.8f;
-		// преобразование double во float
-		float floatValue2 = (float) 99.3;
-		double doubleValue = 32.4;
+		Machine machine1 = new Machine();
+		Camera camera1 = new Camera();
 		
-		// System.out.println(Byte.MAX_VALUE);
-		// System.out.println(Integer.MAX_VALUE);
+		// machine1.start();
+		// camera1.start();
+		// camera1.snap();
 		
-		// »спользуем кастинг дл€ конвертации одного числа в другое
-		intValue = (int) longValue;
-		System.out.println(intValue);
+		/*
+		 *  “ип переменной определ€ет какой метод € могу вызвать, 
+		 *  а переменна€ содержаща€ в себе другой тип обьекта,
+		 *  определ€ет какие фактически методы будут вызыватьс€ 
+		 *  при вызове конкретного метода
+		 */
 		
-		// Ќет необходимости указывать, так как значение не урезаетс€
-		// а лишь преобразуетс€ в число с плавающей точкой
-		doubleValue = intValue;
-		System.out.println(doubleValue);
+		// Upcasting
+		Machine machine2 = camera1;
+		// вызываетс€ метод из класса camera
+		machine2.start();
+		// error: machine2.snap();
 		
-		// “ребуетс€ указание кастинга так как урезаютс€ значени€ 
-		// после зап€той
-		intValue = (int) floatValue;
-		System.out.println(intValue);
+		// Downcasting
+		Machine machine3 = new Camera();
+		Camera camera2 = (Camera) machine3;
+		camera2.start();
+		// теперь метод snap() доступен
+		camera2.snap();
 		
-		// преобразует в -128, так как макс. число 127
-		byteValue = (byte)128;
-		System.out.println(byteValue);
-		
+		// Doesn't work -- runtime error
+		Machine machine4 = new Machine();
+		// Camera camera3 = (Camera)machine4;
+		// camera3.start();
+		// camera3.snap();
 	}
 	
 }
