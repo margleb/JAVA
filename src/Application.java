@@ -1,38 +1,58 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Application {
 
 	public static void main(String[] args) {
-		ArrayList<Integer> numbers = new ArrayList<Integer>();
+		/*
+		 * ArrayLists manage arrays internally.
+		 * [0][1][2][4][5]...
+		 * Используется, когда нужно удалить элемент в конце списка
+		 */
+		List<Integer> arrayList = new ArrayList<Integer>();
+		/*
+		 * LinkedLists consists of elements where each elements
+		 * has a reference to the previous and next element
+		 * [0]->[1]->[2]...
+		 * <- <-
+		 * Используется, когда нужно удалить элемент в середине или начале списка
+		 */
+		List<Integer> linkedList = new LinkedList<Integer>();
 		
-		// Adding
-		numbers.add(10);
-		numbers.add(100);
-		numbers.add(40);
-		
-		// Retrieving
-		// System.out.println(numbers.get(0));
-		
-		System.out.println("\nIteration #1: ");
-		// Indexed for loop iteration
-		for(int i=0; i < numbers.size(); i++) {
-			System.out.println(numbers.get(i));
-		}
-		
-		// Removing items (careful!)
-		numbers.remove(numbers.size() - 1);
-		
-		// This is VERY slow
-		numbers.remove(0);
-		
-		System.out.println("\nIteration #2: ");
-		for(Integer value: numbers) {
-			System.out.println(value);
-		}
-		
-		// List interface ...
-		List<String> values = new ArrayList<String>();
-		
+		doTimings("ArrayList", arrayList);
+		doTimings("LinkedList", linkedList);
 	}
 
+	private static void doTimings(String type, List<Integer> list) {
+		
+		for(int i=0; i<1E5; i++) {
+			list.add(i);
+		}
+		
+		long start = System.currentTimeMillis();
+		
+		/*
+		// Add items at end of list
+		for(int i=0; i<1E5; i++) {
+			list.add(i);
+		}
+		*/
+		
+		/*
+		// Add items elsewere in list
+		for(int i=0; i<1E5; i++) {
+			list.add(0, i);
+		}
+		*/
+		
+		for(int i=0; i<1E5; i++) {
+			list.add(list.size() - 100, i);
+		}
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time taken: " + (end - start) + " ms for " + type);
+	}
+	
 }
