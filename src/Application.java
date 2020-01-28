@@ -1,58 +1,32 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Application {
-
 	public static void main(String[] args) {
-		/*
-		 * ArrayLists manage arrays internally.
-		 * [0][1][2][4][5]...
-		 * Используется, когда нужно удалить элемент в конце списка
-		 */
-		List<Integer> arrayList = new ArrayList<Integer>();
-		/*
-		 * LinkedLists consists of elements where each elements
-		 * has a reference to the previous and next element
-		 * [0]->[1]->[2]...
-		 * <- <-
-		 * Используется, когда нужно удалить элемент в середине или начале списка
-		 */
-		List<Integer> linkedList = new LinkedList<Integer>();
 		
-		doTimings("ArrayList", arrayList);
-		doTimings("LinkedList", linkedList);
-	}
-
-	private static void doTimings(String type, List<Integer> list) {
+		// HahsMap НЕ поддерживает порядок элементов (иногда выводится рандомно)
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
 		
-		for(int i=0; i<1E5; i++) {
-			list.add(i);
+		map.put(5, "Five");
+		map.put(8, "Eight");
+		map.put(6, "Six");
+		// перезапись дубля
+		// map.put(6, "Hello");
+		map.put(4, "Four");
+		map.put(2, "Two");
+		
+		String text = map.get(6);
+		
+		// System.out.println(text);
+		
+		for(Map.Entry<Integer, String> entry: map.entrySet()) {
+			// получить ключ
+			int key = entry.getKey();
+			// получить значение
+			String value = entry.getValue();
+			System.out.println(key + ": " + value);
+			
 		}
 		
-		long start = System.currentTimeMillis();
-		
-		/*
-		// Add items at end of list
-		for(int i=0; i<1E5; i++) {
-			list.add(i);
-		}
-		*/
-		
-		/*
-		// Add items elsewere in list
-		for(int i=0; i<1E5; i++) {
-			list.add(0, i);
-		}
-		*/
-		
-		for(int i=0; i<1E5; i++) {
-			list.add(list.size() - 100, i);
-		}
-		
-		long end = System.currentTimeMillis();
-		
-		System.out.println("Time taken: " + (end - start) + " ms for " + type);
-	}
-	
+	}	
 }
