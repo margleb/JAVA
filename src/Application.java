@@ -1,7 +1,7 @@
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 class Person {
@@ -13,39 +13,54 @@ class Person {
 		this.name = name;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String toString() {
-		return "{ID is: " + id + "; name is: " + name + "}";
+		return id + ": " + name;
 	}
+}
 
+class StringLengthComparator implements Comparator<String> {
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public int compare(String s1, String s2) {
+		int len1 = s1.length();
+		int len2 = s2.length();
+		
+		if(len1 > len2) {
+			return 1;
+		} else if(len1 < len2) {
+			return -1;
+		}
+		return 0;
 	}
+}
 
+class AlphabeticalCompartor implements Comparator<String> {
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public int compare(String s1, String s2) {
+		return s1.compareTo(s2);
 	}
-	
-	
+}
+
+class ReverseAlphabeticalCompartor implements Comparator<String> {	
+	@Override
+	public int compare(String s1, String s2) {
+		return -s1.compareTo(s2);
+	}
 	
 }
 
@@ -54,33 +69,83 @@ public class Application {
 	public static void main(String[] args) {
 		
 		
-		Person p1 = new Person(0, "Bob");
-		Person p2 = new Person(1, "Sue");
-		Person p3 = new Person(2, "Mike");
-		Person p4 = new Person(1, "Sue");
+		//////////// Sorting strings //////////////////////////////////
+		List<String> animals = new ArrayList<String>();
+
+		animals.add("tiger");
+		animals.add("lion");
+		animals.add("cat");
+		animals.add("snake");
+		animals.add("mongoose");
+		animals.add("elephant");
+
+		// благодар€ классу StringLengthComaprator слова сортированы по длине
+		// Collections.sort(animals, new StringLengthComparator());
+		// —ортировка по алфавитному пор€дку
+		// Collections.sort(animals, new AlphabeticalCompartor());
+		// —ортировка в обратном алфавитном пор€дке
+		Collections.sort(animals, new ReverseAlphabeticalCompartor());
 		
-		
-		Map<Person, Integer> map = new LinkedHashMap<Person, Integer>();
-		
-		map.put(p1, 1);
-		map.put(p2, 2);
-		map.put(p3, 3);
-		map.put(p4, 1);
-		
-		for(Person key: map.keySet()) {
-			System.out.println(key + ": " + map.get(key));
+		for (String animal : animals) {
+			System.out.println(animal);
+		}
+
+		//////////// Sorting Numbers //////////////////////////////////
+		List<Integer> numbers = new ArrayList<Integer>();
+
+		numbers.add(3);
+		numbers.add(36);
+		numbers.add(73);
+		numbers.add(40);
+		numbers.add(1);
+
+		System.out.println();
+
+		Collections.sort(numbers, new Comparator<Integer>() {
+			public int compare(Integer num1, Integer num2) {
+				// сортировка по реверсировану пор€дку
+				return -num1.compareTo(num2);
+			}
+		});
+
+		for (Integer number : numbers) {
+			System.out.println(number);
 		}
 		
-		// получение ключей без значений
-		Set<Person> set = new LinkedHashSet<Person>();
+		////////////Sorting arbitary objects //////////////////////////////////
+		System.out.println();
 		
-		set.add(p1);
-		set.add(p2);
-		set.add(p3);
-		set.add(p4);
-		// ќбьекты €вл€ютс€ разными, в отличие от строк и примитивов, поэтому добавл€ютс€ в список
-		System.out.println(set);
+		List<Person> people = new ArrayList<Person>();
 		
-	}
+		people.add(new Person(1, "Joe"));
+		people.add(new Person(3, "Bob"));
+		people.add(new Person(4, "Clare"));
+		people.add(new Person(2, "Sue"));
+		
+		// Sort in order of ID
+		Collections.sort(people, new Comparator<Person>() {
+			public int compare(Person p1, Person p2) {
+				if(p1.getId() > p2.getId()) {
+					return 1;
+				} else if(p1.getId() < p2.getId()) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+		
+		System.out.println("\n");
+		
+		// Sort in order of Name
+		Collections.sort(people, new Comparator<Person>() {
+			public int compare(Person p1, Person p2) {
+				return p1.getName().compareTo(p2.getName());
+			}
+		});
+		
+		for(Person person: people) {
+			System.out.println(person);
+		}
 
+	}
 }
