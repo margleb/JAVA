@@ -1,151 +1,94 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-
-class Person {
-	private int id;
+// добавл€ем натруальный пор€док
+class Person implements Comparable<Person> {
 	private String name;
 	
-	public Person(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
+	public Person(String name) {
 		this.name = name;
 	}
 	
 	public String toString() {
-		return id + ": " + name;
+		return name;
 	}
-}
 
-class StringLengthComparator implements Comparator<String> {
 	@Override
-	public int compare(String s1, String s2) {
-		int len1 = s1.length();
-		int len2 = s2.length();
-		
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override	
+	public int compareTo(Person person) {
+		// return -name.compareTo(person.name);
+		int len1 = name.length();
+		int len2 = person.name.length();
 		if(len1 > len2) {
 			return 1;
 		} else if(len1 < len2) {
 			return -1;
+		} else {
+			return name.compareTo(person.name);
 		}
-		return 0;
 	}
-}
-
-class AlphabeticalCompartor implements Comparator<String> {
-	@Override
-	public int compare(String s1, String s2) {
-		return s1.compareTo(s2);
-	}
-}
-
-class ReverseAlphabeticalCompartor implements Comparator<String> {	
-	@Override
-	public int compare(String s1, String s2) {
-		return -s1.compareTo(s2);
-	}
-	
 }
 
 public class Application {
 
 	public static void main(String[] args) {
+		List<Person> list = new ArrayList<Person>();
+		// сортируетс€ автоматически в натуральном пор€дке
+		SortedSet<Person> set = new TreeSet<Person>();
 		
+		addElements(list);
+		addElements(set);
 		
-		//////////// Sorting strings //////////////////////////////////
-		List<String> animals = new ArrayList<String>();
-
-		animals.add("tiger");
-		animals.add("lion");
-		animals.add("cat");
-		animals.add("snake");
-		animals.add("mongoose");
-		animals.add("elephant");
-
-		// благодар€ классу StringLengthComaprator слова сортированы по длине
-		// Collections.sort(animals, new StringLengthComparator());
-		// —ортировка по алфавитному пор€дку
-		// Collections.sort(animals, new AlphabeticalCompartor());
-		// —ортировка в обратном алфавитном пор€дке
-		Collections.sort(animals, new ReverseAlphabeticalCompartor());
+		// сортирует в натуральном пор€дке
+		Collections.sort(list);
 		
-		for (String animal : animals) {
-			System.out.println(animal);
-		}
-
-		//////////// Sorting Numbers //////////////////////////////////
-		List<Integer> numbers = new ArrayList<Integer>();
-
-		numbers.add(3);
-		numbers.add(36);
-		numbers.add(73);
-		numbers.add(40);
-		numbers.add(1);
-
+		showElements(list);
 		System.out.println();
-
-		Collections.sort(numbers, new Comparator<Integer>() {
-			public int compare(Integer num1, Integer num2) {
-				// сортировка по реверсировану пор€дку
-				return -num1.compareTo(num2);
-			}
-		});
-
-		for (Integer number : numbers) {
-			System.out.println(number);
-		}
-		
-		////////////Sorting arbitary objects //////////////////////////////////
-		System.out.println();
-		
-		List<Person> people = new ArrayList<Person>();
-		
-		people.add(new Person(1, "Joe"));
-		people.add(new Person(3, "Bob"));
-		people.add(new Person(4, "Clare"));
-		people.add(new Person(2, "Sue"));
-		
-		// Sort in order of ID
-		Collections.sort(people, new Comparator<Person>() {
-			public int compare(Person p1, Person p2) {
-				if(p1.getId() > p2.getId()) {
-					return 1;
-				} else if(p1.getId() < p2.getId()) {
-					return -1;
-				}
-				return 0;
-			}
-		});
-		
-		System.out.println("\n");
-		
-		// Sort in order of Name
-		Collections.sort(people, new Comparator<Person>() {
-			public int compare(Person p1, Person p2) {
-				return p1.getName().compareTo(p2.getName());
-			}
-		});
-		
-		for(Person person: people) {
-			System.out.println(person);
-		}
-
+		showElements(set);
 	}
+
+	// добавл€ем с помочью collection интерфейса,
+	// так как List и SortedSet импломентированы
+	private static void addElements(Collection<Person> col) {
+		col.add(new Person("Joe"));
+		col.add(new Person("Sue"));
+		col.add(new Person("Juliet"));
+		col.add(new Person("Clare"));
+		col.add(new Person("Mike"));
+	}
+
+	private static void showElements(Collection<Person> col) {
+		for (Person element : col) {
+			System.out.println(element);
+		}
+	}
+
 }
