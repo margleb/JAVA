@@ -1,94 +1,69 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-// добавл€ем натруальный пор€док
-class Person implements Comparable<Person> {
-	private String name;
-	
-	public Person(String name) {
-		this.name = name;
-	}
-	
-	public String toString() {
-		return name;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-
-	@Override	
-	public int compareTo(Person person) {
-		// return -name.compareTo(person.name);
-		int len1 = name.length();
-		int len2 = person.name.length();
-		if(len1 > len2) {
-			return 1;
-		} else if(len1 < len2) {
-			return -1;
-		} else {
-			return name.compareTo(person.name);
-		}
-	}
-}
+import java.util.NoSuchElementException;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Application {
-
+	
 	public static void main(String[] args) {
-		List<Person> list = new ArrayList<Person>();
-		// сортируетс€ автоматически в натуральном пор€дке
-		SortedSet<Person> set = new TreeSet<Person>();
+		// (head) <- 000000000000000000000000000 <- (tail) FIFO (first in, first out)
 		
-		addElements(list);
-		addElements(set);
+		// резервируем очередь дл€ 3ех элементов
+		Queue<Integer> q1 = new ArrayBlockingQueue<Integer>(3);
 		
-		// сортирует в натуральном пор€дке
-		Collections.sort(list);
+		// стандартное добавление элементов
+		q1.add(10);
+		q1.add(20);
+		q1.add(30);
 		
-		showElements(list);
-		System.out.println();
-		showElements(set);
-	}
-
-	// добавл€ем с помочью collection интерфейса,
-	// так как List и SortedSet импломентированы
-	private static void addElements(Collection<Person> col) {
-		col.add(new Person("Joe"));
-		col.add(new Person("Sue"));
-		col.add(new Person("Juliet"));
-		col.add(new Person("Clare"));
-		col.add(new Person("Mike"));
-	}
-
-	private static void showElements(Collection<Person> col) {
-		for (Person element : col) {
-			System.out.println(element);
+		System.out.println("Head of queue is: " + q1.element());
+		
+		try {
+			q1.add(40);	
+		} catch (IllegalStateException e) {
+			// TODO: handle exception
+			System.out.println("Tried to add too many items to the queue.");
 		}
+		
+		for(Integer value: q1) {
+			System.out.println("Quer value: " + value);
+		}
+		
+		// возвращает с удалением элемент из начала очереди. 
+		// ≈сли очередь пуста, генерирует исключение NoSuchElementException
+		System.out.println("Removed from queue: " + q1.remove());
+		System.out.println("Removed from queue: " + q1.remove());
+		System.out.println("Removed from queue: " + q1.remove());
+		
+		try {
+			System.out.println("Removed from queue: " + q1.remove());	
+		} catch (NoSuchElementException e) {
+			System.out.println("Tried to remove to many items from queue");
+		}
+		
+		/////////////////////////////////////////////////////////////////////
+		
+		Queue<Integer> q2 = new ArrayBlockingQueue<Integer>(2);
+		
+		// ¬озвращает без удалени€ элемент из начала очереди. 
+		// ≈сли очередь пуста, возвращает значение null
+		System.out.println("Queue 2 peek: " + q2.peek());
+		
+		q2.offer(10);
+		q2.offer(20);
+		if(q2.offer(30) == false) {
+			System.out.println("Offer failed to add third item");
+		};
+		
+		for(Integer value: q2) {
+			System.out.println("Queue 2 value: " + value);
+		}
+		
+		// возвращает с удалением элемент из начала очереди. 
+		// ≈сли очередь пуста, возвращает значение null
+		System.out.println("Queue 2 poll: " + q2.poll());
+		System.out.println("Queue 2 poll: " + q2.poll());
+		System.out.println("Queue 2 poll: " + q2.poll());
+		
 	}
-
+	
 }
