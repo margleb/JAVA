@@ -1,68 +1,37 @@
-import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Application {
 	
 	public static void main(String[] args) {
-		// (head) <- 000000000000000000000000000 <- (tail) FIFO (first in, first out)
+		LinkedList<String> animals = new LinkedList<String>();
 		
-		// резервируем очередь дл€ 3ех элементов
-		Queue<Integer> q1 = new ArrayBlockingQueue<Integer>(3);
+		animals.add("fox");
+		animals.add("cat");
+		animals.add("dog");
+		animals.add("rabbit");
 		
-		// стандартное добавление элементов
-		q1.add(10);
-		q1.add(20);
-		q1.add(30);
+		Iterator<String> it = animals.iterator();
 		
-		System.out.println("Head of queue is: " + q1.element());
-		
-		try {
-			q1.add(40);	
-		} catch (IllegalStateException e) {
-			// TODO: handle exception
-			System.out.println("Tried to add too many items to the queue.");
+		// есть ли следующий элемент, и не достигнут ли конец коллекции
+		while(it.hasNext()) {
+			// возвращает текущий элемент и переходит к следующему
+			String value = it.next();
+			System.out.println(value);
+			// если значение равно cat
+			if(value.equals("cat")) {
+				it.remove();
+			}
+			
 		}
 		
-		for(Integer value: q1) {
-			System.out.println("Quer value: " + value);
+		System.out.println();
+		
+		/// Modern iteration, post Java 5 and later
+		for(String animal:  animals) {
+			System.out.println(animal);			
+			// animals.remove(2);
 		}
-		
-		// возвращает с удалением элемент из начала очереди. 
-		// ≈сли очередь пуста, генерирует исключение NoSuchElementException
-		System.out.println("Removed from queue: " + q1.remove());
-		System.out.println("Removed from queue: " + q1.remove());
-		System.out.println("Removed from queue: " + q1.remove());
-		
-		try {
-			System.out.println("Removed from queue: " + q1.remove());	
-		} catch (NoSuchElementException e) {
-			System.out.println("Tried to remove to many items from queue");
-		}
-		
-		/////////////////////////////////////////////////////////////////////
-		
-		Queue<Integer> q2 = new ArrayBlockingQueue<Integer>(2);
-		
-		// ¬озвращает без удалени€ элемент из начала очереди. 
-		// ≈сли очередь пуста, возвращает значение null
-		System.out.println("Queue 2 peek: " + q2.peek());
-		
-		q2.offer(10);
-		q2.offer(20);
-		if(q2.offer(30) == false) {
-			System.out.println("Offer failed to add third item");
-		};
-		
-		for(Integer value: q2) {
-			System.out.println("Queue 2 value: " + value);
-		}
-		
-		// возвращает с удалением элемент из начала очереди. 
-		// ≈сли очередь пуста, возвращает значение null
-		System.out.println("Queue 2 poll: " + q2.poll());
-		System.out.println("Queue 2 poll: " + q2.poll());
-		System.out.println("Queue 2 poll: " + q2.poll());
 		
 	}
 	
