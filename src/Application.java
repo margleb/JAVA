@@ -1,93 +1,86 @@
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+
+
+class Person {
+	private int id;
+	private String name;
+	
+	public Person(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public String toString() {
+		return "{ID is: " + id + "; name is: " + name + "}";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
+	
+}
 
 public class Application {
 
 	public static void main(String[] args) {
-
-		// Hashset не сохраняет порядок
-		// Set<String> set1 = new HashSet<String>();
-
-		// LinkedHashSet сохраняет порядок добавления элементов
-		// Set<String> set1 = new LinkedHashSet<String>();
-
-		// TreeSet устанавливает элементы в натуральном порядке (1,2,3.., a,b,c...)
-		Set<String> set1 = new TreeSet<String>();
-
-		if (set1.isEmpty()) {
-			System.out.println("Set is empty at start");
+		
+		
+		Person p1 = new Person(0, "Bob");
+		Person p2 = new Person(1, "Sue");
+		Person p3 = new Person(2, "Mike");
+		Person p4 = new Person(1, "Sue");
+		
+		
+		Map<Person, Integer> map = new LinkedHashMap<Person, Integer>();
+		
+		map.put(p1, 1);
+		map.put(p2, 2);
+		map.put(p3, 3);
+		map.put(p4, 1);
+		
+		for(Person key: map.keySet()) {
+			System.out.println(key + ": " + map.get(key));
 		}
-
-		System.out.println();
-
-		set1.add("dog");
-		set1.add("cat");
-		set1.add("mouse");
-		set1.add("snake");
-		set1.add("bear");
-
-		if (set1.isEmpty()) {
-			System.out.println("Set is empty after adding");
-		}
-
-		// Добаление дубликатов не учитывается
-		set1.add("mouse");
-
-		System.out.println(set1);
-
-		///////////// Iteration ///////////////////
-		System.out.println();
-
-		for (String element : set1) {
-			System.out.println(element);
-		}
-
-		///////////// Does set contains a given item? ///////////////////
-		System.out.println();
-
-		if (set1.contains("aadvark")) {
-			System.out.println("Contains aadvark");
-		}
-
-		if (set1.contains("cat")) {
-			System.out.println("Contains cat");
-		}
-
-		// set2 contains some common elements with set1, and some new
-		Set<String> set2 = new TreeSet<String>();
 		
-		set2.add("dog");
-		set2.add("cat");
-		set2.add("giraffe");
-		set2.add("monkey");
-		set2.add("ant");
+		// получение ключей без значений
+		Set<Person> set = new LinkedHashSet<Person>();
 		
-		///////// Intersection ////////////////////////
-		System.out.println();
+		set.add(p1);
+		set.add(p2);
+		set.add(p3);
+		set.add(p4);
+		// Обьекты являются разными, в отличие от строк и примитивов, поэтому добавляются в список
+		System.out.println(set);
 		
-		Set<String> intersection = new HashSet<String>(set1);
-		
-		System.out.println(intersection);
-	
-		//  оставляет только элементы содержащиеся в set1 и set2
-		intersection.retainAll(set2);
-		
-		System.out.println();
-		
-		System.out.println(intersection);
-		
-		///////// Diffrence ////////////////////////
-		System.out.println();
-		
-		Set<String> difference = new HashSet<String>(set2);
-		
-		// удаляет элементы содержащиеся в set1 и set2
-		difference.removeAll(set1);
-		
-		System.out.println(difference);
-
 	}
 
 }
